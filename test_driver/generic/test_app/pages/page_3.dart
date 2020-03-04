@@ -9,7 +9,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: routes.page3,
+      title: routes.horizontal_swiping_page,
       color: Colors.blue,
     );
   }
