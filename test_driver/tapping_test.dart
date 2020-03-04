@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls
 import 'dart:convert';
 
 import 'package:driver_extensions/driver_extensions.dart';
@@ -21,8 +20,8 @@ void main(List<String> args) {
     await driver?.close();
   });
 
-  Future<void> restart(String route) {
-    return driver.requestData(
+  Future<void> _restart(String route) async {
+    await driver.requestData(
       json.encode(
         TestConfiguration(
           resolution: properties.resolution,
@@ -33,28 +32,33 @@ void main(List<String> args) {
     );
   }
 
-  group('Route navigation', () {
-    [
-      routes.page1,
-      routes.page2,
-      routes.page3,
-      routes.page4,
-    ].forEach((route) {
-      test(route, () async {
-        await restart(route);
+  group('tapping', () {
+    setUp(() async {
+      await _restart(routes.tapping_page);
+    });
+    test('before', () async {
+      await driver.waitForElement(find.text('Not Tapped'));
+    });
 
-        await driver.waitForElement(find.text(route));
-      });
+    test('after', () async {
+      await driver.tapElement(find.text('Tap'));
+
+      await driver.waitForElement(find.text('Tapped'));
     });
   });
 
-  group('Speed test', () {
-    List.generate(100, (index) => '/generated_page_$index').forEach((route) {
-      test(route, () async {
-        await restart(route);
+  group('long pressing', () {
+    setUp(() async {
+      await _restart(routes.long_pressing_page);
+    });
+    test('before', () async {
+      await driver.waitForElement(find.text('Not Pressed'));
+    });
 
-        await driver.waitForElement(find.text(route));
-      });
+    test('after', () async {
+      await driver.longPress(find.text('Long Press'));
+
+      await driver.waitForElement(find.text('Pressed'));
     });
   });
 }

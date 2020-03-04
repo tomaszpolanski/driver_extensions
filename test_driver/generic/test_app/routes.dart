@@ -1,5 +1,5 @@
-const page1 = '/page1';
-const page2 = '/page2';
+const tapping_page = '/tapping';
+const long_pressing_page = '/long_pressing';
 const page3 = '/page3';
 const page4 = '/page4';
 const page5 = '/page5';

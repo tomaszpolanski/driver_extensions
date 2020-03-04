@@ -9,7 +9,7 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: routes.page2,
+      title: routes.long_pressing_page,
       color: Colors.purpleAccent,
     );
   }
