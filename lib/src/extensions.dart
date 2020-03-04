@@ -44,11 +44,11 @@ extension DriverExtensions on FlutterDriver {
     await _scroll(this, element, 1000, 0);
   }
 
-  Future<void> scrollDown(SerializableFinder element, [double distance]) {
+  Future<void> swipeDown(SerializableFinder element, [double distance]) {
     return _scroll(this, element, 0, -(distance ?? 1000).abs());
   }
 
-  Future<void> scrollUp(SerializableFinder element, [double distance]) {
+  Future<void> swipeUp(SerializableFinder element, [double distance]) {
     return _scroll(this, element, 0, (distance ?? 1000).abs());
   }
 

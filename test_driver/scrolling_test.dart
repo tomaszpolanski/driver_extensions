@@ -36,6 +36,7 @@ void main(List<String> args) {
     setUp(() async {
       await _restart(routes.horizontal_swiping_page);
     });
+
     test('before', () async {
       await driver.waitForElement(find.text('Page1'));
       await driver.waitForAbsentElement(find.text('Page2'));
@@ -53,6 +54,33 @@ void main(List<String> args) {
       await driver.waitForAbsentElement(find.text('Page1'));
 
       await driver.swipeRight(find.text('Page2'));
+      await driver.waitForElement(find.text('Page1'));
+      await driver.waitForAbsentElement(find.text('Page2'));
+    });
+  });
+
+  group('vertical scrolling', () {
+    setUp(() async {
+      await _restart(routes.vertical_swiping_page);
+    });
+
+    test('before', () async {
+      await driver.waitForElement(find.text('Page1'));
+      await driver.waitForAbsentElement(find.text('Page2'));
+    });
+
+    test('swipeDown', () async {
+      await driver.swipeDown(find.text('Page1'));
+
+      await driver.waitForElement(find.text('Page2'));
+      await driver.waitForAbsentElement(find.text('Page1'));
+    });
+
+    test('swipeUp', () async {
+      await driver.swipeDown(find.text('Page1'));
+      await driver.waitForAbsentElement(find.text('Page1'));
+
+      await driver.swipeUp(find.text('Page2'));
       await driver.waitForElement(find.text('Page1'));
       await driver.waitForAbsentElement(find.text('Page2'));
     });
