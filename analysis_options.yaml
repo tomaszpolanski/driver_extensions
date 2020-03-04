@@ -9,8 +9,6 @@ analyzer:
   language:
     strict-inference: true
     strict-raw-types: true
-  enable-experiment:
-    - non-nullable
 
 linter:
   rules:
