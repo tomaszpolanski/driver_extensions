@@ -1,6 +1,6 @@
 name: driver_extensions
-description: A set of Flutter Driver extension methods
-version: 1.0.0
+description: A set of Flutter Driver extension methods to make driver tests easier to write and maintain.
+version: 1.0.0+1
 homepage: https://github.com/tomaszpolanski/driver_extensions
 
 environment:
