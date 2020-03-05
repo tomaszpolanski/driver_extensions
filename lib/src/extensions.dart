@@ -41,26 +41,50 @@ extension DriverExtensions on FlutterDriver {
   }) =>
       wrapper(getText, finder, timeout: timeout);
 
-  Future<void> swipeLeft(SerializableFinder element) async {
-    await waitForElement(element);
-    await _scroll(this, element, -1000, 0);
-  }
+  Future<void> swipeLeft(
+    SerializableFinder element, {
+    Duration timeout,
+  }) =>
+      _scroll(this, element, -1000, 0, timeout: timeout);
 
-  Future<void> swipeRight(SerializableFinder element) async {
-    await waitForElement(element);
-    await _scroll(this, element, 1000, 0);
-  }
+  Future<void> swipeRight(
+    SerializableFinder element, {
+    Duration timeout,
+  }) =>
+      _scroll(this, element, 1000, 0, timeout: timeout);
 
-  Future<void> swipeDown(SerializableFinder element, [double distance]) {
-    return _scroll(this, element, 0, -(distance ?? 1000).abs());
-  }
+  Future<void> swipeDown(
+    SerializableFinder element, {
+    double distance,
+    Duration timeout,
+  }) =>
+      _scroll(
+        this,
+        element,
+        0,
+        -(distance ?? 1000).abs(),
+        timeout: timeout,
+      );
 
-  Future<void> swipeUp(SerializableFinder element, [double distance]) {
-    return _scroll(this, element, 0, (distance ?? 1000).abs());
-  }
+  Future<void> swipeUp(
+    SerializableFinder element, {
+    double distance,
+    Duration timeout,
+  }) =>
+      _scroll(
+        this,
+        element,
+        0,
+        (distance ?? 1000).abs(),
+        timeout: timeout,
+      );
 
-  Future<void> scrollTo(SerializableFinder item, {SerializableFinder on}) =>
-      scrollUntilVisible(item, on);
+  Future<void> scrollTo(
+    SerializableFinder item, {
+    SerializableFinder on,
+    Duration timeout,
+  }) =>
+      scrollUntilVisible(item, on, timeout: timeout);
 }
 
 Future<void> _scroll(
