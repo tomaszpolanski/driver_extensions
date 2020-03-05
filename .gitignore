@@ -39,3 +39,4 @@ driver/windows/flutter/generated_plugin_registrant.cc
 driver/windows/flutter/generated_plugin_registrant.h
 example/macos/Podfile
 example/ios/Podfile
+test_driver/generic/generic_test.dart

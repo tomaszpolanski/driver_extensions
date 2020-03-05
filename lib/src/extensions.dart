@@ -1,4 +1,5 @@
 import 'package:driver_extensions/src/colorizing.dart';
+import 'package:driver_extensions/src/stack_trace.dart';
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:meta/meta.dart';
 
@@ -7,7 +8,7 @@ extension DriverExtensions on FlutterDriver {
     SerializableFinder finder, {
     Duration timeout,
   }) =>
-      _wrapper(tap, finder, timeout: timeout);
+      wrapper(tap, finder, timeout: timeout);
 
   Future<void> longPress(
     SerializableFinder finder, {
@@ -26,13 +27,19 @@ extension DriverExtensions on FlutterDriver {
     SerializableFinder finder, {
     Duration timeout,
   }) =>
-      _wrapper(waitFor, finder, timeout: timeout);
+      wrapper(waitFor, finder, timeout: timeout);
 
   Future<void> waitForAbsentElement(
     SerializableFinder finder, {
     Duration timeout,
   }) =>
-      _wrapper(waitForAbsent, finder, timeout: timeout);
+      wrapper(waitForAbsent, finder, timeout: timeout);
+
+  Future<String> getElementText(
+    SerializableFinder finder, {
+    Duration timeout,
+  }) =>
+      wrapper(getText, finder, timeout: timeout);
 
   Future<void> swipeLeft(SerializableFinder element) async {
     await waitForElement(element);
@@ -71,7 +78,7 @@ Future<void> _scroll(
   );
 }
 
-Future<void> _warnIfSlow<T>({
+Future<T> _warnIfSlow<T>({
   @required Future<T> future,
   @required Duration timeout,
   @required SerializableFinder finder,
@@ -82,10 +89,7 @@ Future<void> _warnIfSlow<T>({
   final stack = StackTrace.current;
   return future
     ..timeout(timeout, onTimeout: () {
-      final testFile = RegExp(r'([a-z-_]+_test.dart:.*)\)')
-              .firstMatch(stack.toString())
-              ?.group(1) ??
-          'UNKNOWN file';
+      final testFile = testFileName(stack) ?? 'UNKNOWN file';
       // ignore: avoid_print
       print('Looking for \"${red(finder.serialize().toString())}\" at '
           '${bold(testFile)} takes longer than expected...');
@@ -93,8 +97,8 @@ Future<void> _warnIfSlow<T>({
     });
 }
 
-Future<void> _wrapper(
-  Future<void> Function(SerializableFinder) driverFunc,
+Future<T> wrapper<T>(
+  Future<T> Function(SerializableFinder) driverFunc,
   SerializableFinder finder, {
   Duration timeout,
 }) {

@@ -14,7 +14,10 @@ class _TappingPageState extends State<TappingPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(_tapped ? 'Tapped' : 'Not Tapped'),
+        Text(
+          _tapped ? 'Tapped' : 'Not Tapped',
+          key: const Key('tapped-label'),
+        ),
         FlatButton(
           onPressed: () {
             setState(() {
