@@ -1,0 +1,13 @@
+on: push
+name: Analyze
+jobs:
+  build:
+    name: Analyze
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1.1.1
+      with:
+        channel: 'beta'
+    - run: flutter pub get && flutter pub run test
+    - run: flutter analyze
