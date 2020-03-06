@@ -48,6 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
+              //TODO(tomek) change when it's in stable channel
+              // ignore: deprecated_member_use
               style: Theme.of(context).textTheme.display1,
             ),
           ],
