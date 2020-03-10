@@ -42,5 +42,22 @@ void main() {
       },
       timeout: const Timeout(Duration(seconds: 5)),
     );
+
+    test(
+      'executes onTimeout callback',
+      () async {
+        bool hadTimeout = false;
+        await driver.waitForElement(find.byValueKey('missing'),
+            timeout: const Duration(seconds: 1), onTimeout: () async {
+          // ignore: avoid_print
+          print('This executes on timeout. '
+              'Can create screenthosts for failing');
+          hadTimeout = true;
+        });
+
+        expect(hadTimeout, isTrue);
+      },
+      timeout: const Timeout(Duration(seconds: 5)),
+    );
   });
 }

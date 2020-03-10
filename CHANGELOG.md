@@ -1,3 +1,6 @@
+## 1.1.0
+- Adding callback `onTimeout` to invoke code when driver operation failed with a timeout
+
 ## 1.0.1
 - Updating API's documentation
 
