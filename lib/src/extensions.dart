@@ -9,14 +9,16 @@ extension DriverExtensions on FlutterDriver {
   Future<void> tapElement(
     SerializableFinder finder, {
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
-      wrapper(tap, finder, timeout: timeout);
+      wrapper(tap, finder, timeout: timeout, onTimeout: onTimeout);
 
   /// Long pressing an element.
   /// Use [timeout] to specify after what time a warning should be printed.
   Future<void> longPress(
     SerializableFinder finder, {
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
       _scroll(
         this,
@@ -25,6 +27,7 @@ extension DriverExtensions on FlutterDriver {
         0,
         duration: const Duration(seconds: 1),
         timeout: timeout,
+        onTimeout: onTimeout,
       );
 
   /// Waits for an element to appear.
@@ -32,24 +35,27 @@ extension DriverExtensions on FlutterDriver {
   Future<void> waitForElement(
     SerializableFinder finder, {
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
-      wrapper(waitFor, finder, timeout: timeout);
+      wrapper(waitFor, finder, timeout: timeout, onTimeout: onTimeout);
 
   /// Waits for an element to disappear.
   /// Use [timeout] to specify after what time a warning should be printed.
   Future<void> waitForAbsentElement(
     SerializableFinder finder, {
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
-      wrapper(waitForAbsent, finder, timeout: timeout);
+      wrapper(waitForAbsent, finder, timeout: timeout, onTimeout: onTimeout);
 
   /// Retrieves text assigned to an [finder].
   /// Use [timeout] to specify after what time a warning should be printed.
   Future<String> getElementText(
     SerializableFinder finder, {
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
-      wrapper(getText, finder, timeout: timeout);
+      wrapper(getText, finder, timeout: timeout, onTimeout: onTimeout);
 
   /// Presses the [element] and moves finger/pointer to the right.
   /// (moves the [element] to the left).
@@ -57,8 +63,9 @@ extension DriverExtensions on FlutterDriver {
   Future<void> swipeLeft(
     SerializableFinder element, {
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
-      _scroll(this, element, -1000, 0, timeout: timeout);
+      _scroll(this, element, -1000, 0, timeout: timeout, onTimeout: onTimeout);
 
   /// Presses the [finder] and moves finger/pointer to the left
   /// (moves the element to the right).
@@ -66,8 +73,9 @@ extension DriverExtensions on FlutterDriver {
   Future<void> swipeRight(
     SerializableFinder finder, {
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
-      _scroll(this, finder, 1000, 0, timeout: timeout);
+      _scroll(this, finder, 1000, 0, timeout: timeout, onTimeout: onTimeout);
 
   /// Presses the [finder] and moves finger/pointer to the top.
   /// (moves the [finder] to the down).
@@ -76,6 +84,7 @@ extension DriverExtensions on FlutterDriver {
     SerializableFinder finder, {
     double distance,
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
       _scroll(
         this,
@@ -83,6 +92,7 @@ extension DriverExtensions on FlutterDriver {
         0,
         -(distance ?? 1000).abs(),
         timeout: timeout,
+        onTimeout: onTimeout,
       );
 
   /// Presses the [finder] and moves finger/pointer to the bottom.
@@ -92,6 +102,7 @@ extension DriverExtensions on FlutterDriver {
     SerializableFinder finder, {
     double distance,
     Duration timeout = const Duration(seconds: 5),
+    Future<dynamic> Function() onTimeout,
   }) =>
       _scroll(
         this,
@@ -99,6 +110,7 @@ extension DriverExtensions on FlutterDriver {
         0,
         (distance ?? 1000).abs(),
         timeout: timeout,
+        onTimeout: onTimeout,
       );
 
   /// Tries to scroll to [item] that is in [on] scrollable surface.
@@ -118,11 +130,13 @@ Future<void> _scroll(
   double dy, {
   Duration duration = const Duration(milliseconds: 300),
   @required Duration timeout,
+  @required Future<dynamic> Function() onTimeout,
 }) {
   return _warnIfSlow(
     future: driver.scroll(finder, dx, dy, duration),
     timeout: timeout,
     finder: finder,
+    onTimeout: onTimeout,
   );
 }
 
@@ -130,18 +144,19 @@ Future<T> _warnIfSlow<T>({
   @required Future<T> future,
   @required Duration timeout,
   @required SerializableFinder finder,
+  @required Future<dynamic> Function() onTimeout,
 }) {
   assert(future != null);
   assert(timeout != null);
   assert(finder != null);
   final stack = StackTrace.current;
   return future
-    ..timeout(timeout, onTimeout: () {
+    ..timeout(timeout, onTimeout: () async {
       final testFile = testFileName(stack) ?? 'UNKNOWN file';
       // ignore: avoid_print
       print('Looking for \"${red(finder.serialize().toString())}\" at '
           '${bold(testFile)} takes longer than expected...');
-      return null;
+      return onTimeout != null ? onTimeout() : null;
     });
 }
 
@@ -150,10 +165,12 @@ Future<T> wrapper<T>(
   Future<T> Function(SerializableFinder) driverFunc,
   SerializableFinder finder, {
   @required Duration timeout,
+  Future<dynamic> Function() onTimeout,
 }) {
   return _warnIfSlow(
     future: driverFunc(finder),
-    timeout: timeout,
     finder: finder,
+    timeout: timeout,
+    onTimeout: onTimeout,
   );
 }
