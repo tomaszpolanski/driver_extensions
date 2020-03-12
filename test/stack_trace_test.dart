@@ -5,13 +5,13 @@ import 'package:stack_trace/stack_trace.dart';
 void main() {
   group('testFileName', () {
     test('returns file name', () {
-      final result = currentTestFile(StackTrace.current);
+      final result = currentTestFilePosition(StackTrace.current);
 
       expect(result, startsWith('stack_trace_test.dart'));
     });
 
     test('return null if not found', () {
-      final result = currentTestFile(Chain([]));
+      final result = currentTestFilePosition(Chain([]));
 
       expect(result, isNull);
     });

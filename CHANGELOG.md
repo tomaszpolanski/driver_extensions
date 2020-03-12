@@ -1,3 +1,6 @@
+## 1.2.0+1
+- Some renaming
+
 ## 1.2.0
 - Exposing `currentTestFile` method that returns current test file name
 

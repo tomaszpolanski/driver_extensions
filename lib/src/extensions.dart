@@ -152,7 +152,7 @@ Future<T> _warnIfSlow<T>({
   final stack = StackTrace.current;
   return future
     ..timeout(timeout, onTimeout: () async {
-      final testFile = currentTestFile(stack) ?? 'UNKNOWN file';
+      final testFile = currentTestFilePosition(stack) ?? 'UNKNOWN file';
       // ignore: avoid_print
       print('Looking for \"${red(finder.serialize().toString())}\" at '
           '${bold(testFile)} takes longer than expected...');
