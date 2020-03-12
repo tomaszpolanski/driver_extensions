@@ -1,3 +1,6 @@
+## 1.2.0
+- Exposing `currentTestFile` method that returns current test file name
+
 ## 1.1.0
 - Adding callback `onTimeout` to invoke code when driver operation failed with a timeout
 
