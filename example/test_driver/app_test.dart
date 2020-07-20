@@ -3,7 +3,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  FlutterDriver driver;
+  late FlutterDriver driver;
 
   // Connect to the Flutter driver before running any tests.
   setUpAll(() async {
@@ -12,7 +12,7 @@ void main() {
 
   // Close the connection to the driver after the tests have completed.
   tearDownAll(() {
-    driver?.close();
+    driver.close();
   });
 
   group('Counter App', () {

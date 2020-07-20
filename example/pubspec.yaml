@@ -4,7 +4,7 @@ description: An example on how to use driver extensions
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: '>=2.9.0-18.0 <3.0.0'
 
 dependencies:
   flutter:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TappingPage extends StatefulWidget {
-  const TappingPage({Key key}) : super(key: key);
+  const TappingPage({Key? key}) : super(key: key);
 
   @override
   _TappingPageState createState() => _TappingPageState();

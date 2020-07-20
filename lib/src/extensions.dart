@@ -1,3 +1,5 @@
+// @dart = 2.8
+
 import 'package:driver_extensions/src/colorizing.dart';
 import 'package:driver_extensions/src/stack_trace.dart';
 import 'package:flutter_driver/flutter_driver.dart';
