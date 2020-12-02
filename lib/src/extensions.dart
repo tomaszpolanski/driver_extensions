@@ -1,5 +1,6 @@
 import 'package:driver_extensions/src/colorizing.dart';
 import 'package:driver_extensions/src/stack_trace.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_driver/flutter_driver.dart';
 
 extension DriverExtensions on FlutterDriver {
