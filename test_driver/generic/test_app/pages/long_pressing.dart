@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LongPressingPage extends StatefulWidget {
-  const LongPressingPage({Key key}) : super(key: key);
+  const LongPressingPage({Key? key}) : super(key: key);
 
   @override
   _LongPressingPageState createState() => _LongPressingPageState();

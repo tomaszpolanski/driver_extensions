@@ -9,7 +9,7 @@ import 'generic/test_app/routes.dart' as routes;
 import 'generic/test_configuration.dart';
 
 void main(List<String> args) {
-  FlutterDriver driver;
+  late FlutterDriver driver;
   final properties = TestProperties(args);
 
   setUpAll(() async {
@@ -17,7 +17,7 @@ void main(List<String> args) {
   });
 
   tearDownAll(() async {
-    await driver?.close();
+    await driver.close();
   });
 
   Future<void> _restart(String route) async {

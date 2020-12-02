@@ -7,7 +7,7 @@ import 'pages/vertical_swiping.dart';
 import 'routes.dart' as routes;
 
 class TestApp extends StatelessWidget {
-  const TestApp({Key key, this.route}) : super(key: key);
+  const TestApp({Key? key, required this.route}) : super(key: key);
 
   final String route;
 
