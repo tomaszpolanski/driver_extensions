@@ -1,4 +1,5 @@
-import 'package:colorize/colorize.dart';
+import 'package:driver_extensions/src/colorize/colorize.dart';
+import 'package:driver_extensions/src/colorize/styles.dart';
 
 /// Colorizes text in green.
 Colorize green(String text) => Colorize(text).apply(Styles.LIGHT_GREEN);
