@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:driver_extensions/driver_extensions.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:fast_flutter_driver/tool.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
