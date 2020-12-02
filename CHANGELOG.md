@@ -1,3 +1,6 @@
+## 2.0.0-nullsafety.0
+- Introducing dart null-safety
+
 ## 1.2.0+1
 - Some renaming
 
