@@ -1,14 +1,26 @@
-on: push
-name: Analyze
+name: Build
+
+on: [ push, pull_request ]
+
 jobs:
-  build:
-    name: Analyze
+  build_flutter_packages:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        channel: [ "beta" ]
+
     steps:
-    - uses: actions/checkout@v1
-    - uses: subosito/flutter-action@v1.1.1
-      with:
-        channel: 'beta'
-    - run: flutter pub get
-    - run: flutter test
-    - run: flutter analyze
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ matrix.channel }}
+
+      - name: Install dependencies
+        run: flutter packages get
+
+      - name: Analyze
+        run: dart analyze
+
+      - name: Run tests
+        run: flutter test
