@@ -24,4 +24,3 @@ jobs:
 
       - name: Run tests
         run: flutter test
-        working-directory: ${{ matrix.package }}
