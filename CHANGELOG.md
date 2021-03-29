@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.1
+- [BREAKING] `scrollTo` method now requires `on` argument to not be null
+- Updating to the latest changes in Flutter Driver
+
 ## 2.0.0-nullsafety.0
 - Introducing dart null-safety
 
