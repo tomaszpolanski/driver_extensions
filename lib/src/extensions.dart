@@ -117,7 +117,7 @@ extension DriverExtensions on FlutterDriver {
   /// Use [timeout] to specify after what time a warning should be printed.
   Future<void> scrollTo(
     SerializableFinder item, {
-    SerializableFinder? on,
+    required SerializableFinder on,
     Duration timeout = const Duration(seconds: 5),
   }) =>
       scrollUntilVisible(item, on, timeout: timeout);

@@ -1,3 +1,6 @@
+## 2.0.0-nullsafety.1
+- Updating to latest changes in Flutter Driver
+
 ## 2.0.0-nullsafety.0
 - Introducing dart null-safety
 

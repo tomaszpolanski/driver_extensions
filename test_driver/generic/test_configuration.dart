@@ -26,9 +26,12 @@ class TestConfiguration implements BaseConfiguration {
   final Resolution resolution;
   final String route;
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'resolution': resolution,
-        if (platform != null) 'platform': platform.asString(),
-        'route': route,
-      };
+  Map<String, dynamic> toJson() {
+    final p = platform;
+    return <String, dynamic>{
+      'resolution': resolution,
+      if (p != null) 'platform': p.asString(),
+      'route': route,
+    };
+  }
 }
